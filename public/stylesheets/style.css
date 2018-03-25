@@ -1,0 +1,27 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.done-button{
+  background-color: yellow;
+}
+
+#add-task-button{
+  background-color: blue;
+  color: red;
+}
+
+.delete-button{
+  background-color: red;
+  color: yellow;
+}
+
+.deleteCompleteAll{
+    background-color: red;
+    color: yellow;
+}

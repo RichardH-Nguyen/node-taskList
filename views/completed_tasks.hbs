@@ -1,0 +1,20 @@
+<h2>Completed Tasks</h2>
+
+<div class="task-list">
+    {{#if tasks}}
+        <ul>
+            {{#each tasks}}
+                <li><a href="task/{{this._id}}">{{this.text}}</a></li>
+            {{/each}}
+        </ul>
+
+    {{else}}
+        <p>No tasks have been completed</p>
+    {{/if}}
+
+    <form class="delete-completed-tasks-form" action="/deleteDone" method="POST">
+        <input class="deleteCompleteAll" type="submit" value="Delete completed tasks">
+    </form>
+
+    <script src="/javascripts/confirm_delete.js"></script>
+</div>
