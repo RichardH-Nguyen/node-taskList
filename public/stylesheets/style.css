@@ -25,3 +25,12 @@ a {
     background-color: red;
     color: yellow;
 }
+
+.error-message{
+    color: red;
+}
+
+.info-messages{
+    color: green;
+
+}

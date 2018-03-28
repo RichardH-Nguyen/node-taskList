@@ -2,9 +2,16 @@
 
 <div class="add-task">
     <form id="add-task-form" action="/add" method="POST">
-        <input id="add-task-text" name="text" placeholder="todo task">
+        <input id="add-task-text" name="text" placeholder="todo task" required>
         <input id=add-task-button name="add" type="submit" value="add">
     </form>
+</div>
+
+<div class="flash-messages">
+    {{#if messages}}
+        <p class="error-message">{{messages.error}}</p>
+        <p class="info-messages">{{messages.info}}</p>
+    {{/if}}
 </div>
 
 <div class="task-list">
@@ -13,7 +20,7 @@
     <ol>
         {{#each tasks}}
             <!-- creates a done and delete button for each task  -->
-            <li><a href="task/{{this._id}}">{{this.text}}</a>
+            <li><a href="task/{{this._id}}">{{this.text}} {{this.dateCreated}}</a>
             <form class="done-form" action="/done" method="POST">
                 <input class="done-button" type="submit" name="done" value="Done!">
                 <input type="hidden" name="_id" value="{{this._id}}">
@@ -41,3 +48,5 @@
         </div>
     {{/if}}
 </div>
+
+<script src="/javascripts/confirm_delete.js"></script>

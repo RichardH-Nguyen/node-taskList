@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 router.post('/add', function(req, res, next){
     //creates a new task when the add button is pushed on the homepage.
   if (req.body.text) {
-      var t = new Task({text: req.body.text, completed: false});
+      var t = new Task({text: req.body.text, completed: false, dateCreated:new Date()});
 
       t.save().then((newTask) => {
           console.log('The new task created is ', newTask);
@@ -26,6 +26,7 @@ router.post('/add', function(req, res, next){
       });
   }
   else{
+      req.flash('error', 'Please enter a task.');
       res.redirect('/');
   }
 });
@@ -33,7 +34,7 @@ router.post('/add', function(req, res, next){
 router.post('/done', function(req, res, next){
     //updates individual task completed to true when done button is pushed
 
-  Task.findByIdAndUpdate( req.body._id, {completed: true})
+  Task.findByIdAndUpdate( req.body._id, {completed: true, dateCompleted:new Date()})
       .then( (originalTask) => {
         if(originalTask){
           res.redirect('/');
@@ -53,6 +54,7 @@ router.post('/delete', function(req, res, next){
   Task.findByIdAndRemove(req.body._id)
        .then((deletedTask) => {
      if(deletedTask){
+         req.flash('info', 'Task deleted');
        res.redirect('/');
      }
      else{
@@ -69,6 +71,7 @@ router.post('/alldone', function(req, res, next){
     //updates all tasks on the home page completed key to true.
     Task.updateMany({completed: false}, {completed: true})
         .then(()=>{
+        req.flash('info', 'All tasks are done!');
       res.redirect('/')
         })
         .catch((err) => {next(err);
@@ -79,6 +82,7 @@ router.post('/deleteDone', function(req, res, next){
     //deletes all completed tasks
     Task.deleteMany({completed: true})
         .then(() => {
+            req.flash('info', 'All completed tasks deleted');
             res.redirect('/')
         })
         .catch((err) => {next(err);
