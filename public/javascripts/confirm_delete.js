@@ -4,9 +4,10 @@
 var deleteButton = document.querySelectorAll('.delete-button');
 
 deleteButton.forEach(function (button) {
-
+    var name = button.getAttributeNode('title').value;
     button.addEventListener('click', function (event) {
-        var confirmDelete = confirm('Are your sure you want to task(s)?');
+
+        var confirmDelete = confirm('Are you sure you want to delete the task: ' + name + '?');
 
         if(!confirmDelete){
             event.preventDefault();

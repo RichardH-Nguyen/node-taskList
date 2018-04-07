@@ -23,11 +23,11 @@
             <li><a href="task/{{this._id}}">{{this.text}} {{this.dateCreated}}</a>
             <form class="done-form" action="/done" method="POST">
                 <input class="done-button" type="submit" name="done" value="Done!">
-                <input type="hidden" name="_id" value="{{this._id}}">
+                <input type="hidden" name="_id" value="{{this._id}}" title="{{this.text}}">
             </form>
 
                 <form class="delete-form" action="/delete" method="POST">
-                    <input class="delete-button" type="submit" name="delete" value="Delete">
+                    <input class="delete-button" type="submit" name="delete" value="Delete" title="{{this.text}}">
                     <input type="hidden" name="_id" value="{{this.id}}">
                 </form>
             </li>

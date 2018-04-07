@@ -37,6 +37,7 @@ router.post('/done', function(req, res, next){
   Task.findByIdAndUpdate( req.body._id, {completed: true, dateCompleted:new Date()})
       .then( (originalTask) => {
         if(originalTask){
+            req.flash('info', originalTask.text + ' marked as done!');
           res.redirect('/');
         }
         else{
@@ -54,7 +55,7 @@ router.post('/delete', function(req, res, next){
   Task.findByIdAndRemove(req.body._id)
        .then((deletedTask) => {
      if(deletedTask){
-         req.flash('info', 'Task deleted');
+         req.flash('info','Task deleted');
        res.redirect('/');
      }
      else{

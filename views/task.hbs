@@ -9,13 +9,13 @@
         <p>{{task.text}} is not yet completed.<br>Task was created {{task.dateCreated}}</p>
         <form class="done-form" action="/done" method="POST">
             <input class="done-button" type="submit" name="done" value="Done!">
-            <input type="hidden" name="_id" value="{{task.id}}">
+            <input type="hidden" name="_id" value="{{task.id}}" title="{{task.text}}">
         </form>
     {{/if}}
 
     <form class="delete-form" action="/delete" method="POST">
-        <input class="delete-button" type="submit" name="delete" value="Delete">
-        <input type="hidden" name="_id" value="{{task.id}}">
+        <input class="delete-button" type="submit" name="delete" value="Delete" title="{{task.text}}">
+        <input type="hidden" name="_id" value="{{task.id}}" title="{{task.text}}">
     </form>
 </div>
 
