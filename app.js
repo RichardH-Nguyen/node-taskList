@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 
 //Read the mLab connetion URL
 var config = require('./config/db_config');
-var db_url = process.env.MONGO_URL;
+var db_url = config.db_url;
 
 //And connect to the database.
 mongoose.connect(db_url)
