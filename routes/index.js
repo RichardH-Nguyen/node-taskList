@@ -6,12 +6,36 @@ var Task = require('../models/task');
 router.get('/', function(req, res, next) {
     //Homepage
     //listing all uncompleted tasks
-  Task.find({completed: false})
+  Task.tasks.find({completed: false})
       .then((docs) => {
     res.render('index', {title: 'Incomplete tasks', tasks: docs})
       })
       .catch((err) => {next(err)});
 });
+
+/* GET login page. */
+router.get('/login', function (res, req, next) {
+    res.redirect('login');
+});
+
+/* GET signup page. */
+router.get('/signup', function (res, req, next) {
+    res.redirect('signup');
+});
+
+/* POST login page. */
+router.post('/login', passport.authenticate('local-login', {
+    successRedirect: '/secret',
+    failureRedirect: '/login',
+    failureFlash: true
+}));
+
+/* POST signup page. */
+router.post('/signup', passport.authenticate('local-login', {
+    successRedirect: '/secret',
+    failureRedirect: '/signup',
+    failureFlash: true
+}));
 
 router.post('/add', function(req, res, next){
     //creates a new task when the add button is pushed on the homepage.
@@ -114,5 +138,25 @@ router.get('/task/:_id', function(req, res, next){
     next(err);
       });
 });
+
+/* GET secret page*/
+router.get('/secret', isLoggedIn, function (req,res,next){
+
+    var user = req.task.local;
+
+    res.render('secret', {
+        username : user.username
+    });
+
+});
+
+function isLoggedIn(req, res, next){
+    if (req.isAuthenticated()){
+        next();
+    }
+    else{
+        res.redirect('/login');
+    }
+}
 
 module.exports = router;

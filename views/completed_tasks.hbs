@@ -8,13 +8,13 @@
             {{/each}}
         </ul>
 
+        <form class="delete-completed-tasks-form" action="/deleteDone" method="POST">
+            <input class="delete-button" type="submit" value="Delete completed tasks">
+        </form>
+
     {{else}}
         <p>No tasks have been completed</p>
     {{/if}}
-
-    <form class="delete-completed-tasks-form" action="/deleteDone" method="POST">
-        <input class="delete-button" type="submit" value="Delete completed tasks">
-    </form>
 
     <script src="/javascripts/confirm_delete.js"></script>
 </div>

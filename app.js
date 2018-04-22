@@ -4,17 +4,15 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var flash = require('express-flash');
+var passport = require('passport');
 var session = require('express-session');
 var mongoose = require('mongoose');
+var MongoDBStore = require('connect-mongodb-session')(session);
 
 //Read the mLab connetion URL
 var config = require('./config/db_config');
-var db_url = config.db_url;
+var db_url = process.env.MONGO_URL;
 
-//And connect to the database.
-mongoose.connect(db_url)
-    .then( () => {console.log('connected to mLab');})
-    .catch( (err) => { console.log('error connecting to mLab', err);});
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -30,10 +28,25 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use(session({secret: 'top secret', resave: false, saveUninitialized: false}));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+    secret: 'replace with long random string',
+    resave: true,
+    saveUninitialized: true,
+    store: new MongoDBStore({uri: db_url})
+}));
+
+// connect to the database.
+mongoose.connect(db_url)
+    .then( () => {console.log('connected to mLab');})
+    .catch( (err) => { console.log('error connecting to mLab', err);});
+
+require('./config/db_config')(passport);
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(flash());
 
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
