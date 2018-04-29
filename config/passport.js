@@ -1,6 +1,6 @@
 var LocalStrategy = require('passport-local');
 
-var User = require('../models/task');
+var User = require('../models/user.js');
 
 /*
 

@@ -8,7 +8,7 @@ let _ = require('lodash');
 
 // Overwrite the database URL with the test database.
 
-let db_config = require('../config/db_config');
+let db_config = require('../config/passport');
 let test_db_url = process.env.TEST_MONGO_URL;  // Verify that this environment variable is configured on your computer
 db_config.db_url = test_db_url;
 

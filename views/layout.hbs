@@ -11,8 +11,17 @@
 
 
   <div class="navigation">
+
+      {{#if username}}
+          <br>Hello, {{username}}<br>
       <!-- creates links to the bottom of every page for the homepage and the completed tasks page. -->
       <a href="/">To do tasks</a> <a href="/completed">Completed tasks</a>
+      <br>
+      <a href="/auth/logout">Logout</a>
+      {{else}}
+          Sign in to create and manage to do items.
+
+      {{/if}}
   </div>
 
   </body>
